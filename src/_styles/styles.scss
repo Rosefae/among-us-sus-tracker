@@ -1,1 +1,229 @@
 @import 'normalize';
+
+$body-background-1: #BCD2F2;
+$body-background-2: #ABC6E4;
+$ui-black: #152030;
+$ui-white: #fff;
+
+$player-icon-visor: #95C9DC;
+$player-icon-dead: #d60000;
+
+$border-radius: 10px;
+
+// info colors
+:root {
+	--player-fallback: #{$body-background-2};
+	--status-fallback: #{$ui-black};
+
+	--player-red:#C51111;
+	--player-blue:#132FD2;
+	--player-green:#127F2D;
+	--player-pink:#ED53B9;
+	--player-orange:#EE7E0E;
+	--player-yellow:#F5F558;
+	--player-black:#3F484E;
+	--player-white:#D5E0EF;
+	--player-purple:#6B30BC;
+	--player-brown:#72491E;
+	--player-teal:#39FEDB;
+	--player-lime:#50EF3A;
+
+	--status-unknown:#{$ui-black};
+	--status-impostor:#d60000;
+	--status-sus:#ffba19;
+	--status-soft-clear:#32a852;
+	--status-safe:#289dd4;
+	--status-me:#{$ui-black};
+	--status-dead:#{rgba($ui-black, 0.7)};
+}
+
+@mixin strokeText(){
+	font-weight: 900;
+	-webkit-text-fill-color: $ui-white;
+	-webkit-text-stroke: 0.05em $ui-black;
+}
+
+@mixin dropdownArrow($line-height: 1.2em){
+	position: relative;
+
+	&::before{
+		content:'';
+		display: block;
+		position: absolute;
+		pointer-events: none;
+		right: ($line-height - 0.3em) / 2;
+		top: ($line-height / 2) - 0.3em;
+		width: 0.3em;
+		height: 0.3em;
+		border-right: 2px solid $ui-black;
+		border-bottom: 2px solid $ui-black;
+		transform-origin: 75% 75%;
+		transform: rotate(45deg);
+		transition: transform 0.2s ease;
+	}
+}
+
+@mixin focusUnderline(){
+	position: relative;
+
+	&::after{
+		content:'';
+		display: block;
+		position: absolute;
+		left:0;
+		right:0;
+		bottom:0;
+		height: 2px;
+		background: $ui-black;
+		transform-origin: 100% 0%;
+		transform: scaleX(0);
+		transition: transform 0.2s ease;
+	}
+
+	&:focus-within::after{
+		transform-origin: 0% 0%;
+		transform: scaleX(1);
+	}
+}
+
+* {
+	box-sizing: border-box;
+}
+
+.label{
+	display: block;
+	font-weight: 700;
+	margin-bottom: 0.1em;
+}
+
+.select-wrapper{
+	display: inline-block;
+
+	@include dropdownArrow();
+	@include focusUnderline();
+}
+
+select{
+	background: transparent;
+	border: none;
+	font-weight: 700;
+	appearance: none;
+	outline: none;
+	line-height: 1.2em;
+	padding-right: 1.2em;
+}
+
+.input-wrapper{
+	@include focusUnderline();
+}
+
+input{
+	outline:none;
+	appearance:none;
+	padding:0;
+	border:none;
+	background: transparent;
+	line-height: 1.2em;
+	width: 100%;
+	font-size: inherit;
+	font-weight: inherit;
+	color: inherit;
+
+	&::placeholder, &:placeholder-shown{
+		opacity: 0.7;
+	}
+}
+
+textarea{
+	border:none;
+	outline:none;
+	resize: none;
+	padding:0;
+	width: 100%;
+	line-height: 1.2em;
+	background: transparent;
+}
+
+body{
+	background: linear-gradient(130deg,
+		$body-background-2 0% 20%,
+		$body-background-1 20% 30%,
+		$body-background-2 30% 35%,
+		$body-background-1 35% 37%,
+		$body-background-2 37% 50%,
+		$body-background-1 50% 60%,
+		$body-background-2 60% 90%,
+		$body-background-1 90% 94%,
+		$body-background-2 94% 100%);
+	font-family: 'Nunito', sans-serif;
+	color: $ui-black;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+
+	& > * {
+		width: calc(100vw - 40px);
+		max-width: 1024px;
+	}
+}
+
+header{
+	margin-top: 20px;
+	position: relative;
+}
+
+h1{
+	@include strokeText();
+	margin: 0 0 20px;
+	text-align: center;
+	font-size: 2.5rem;
+}
+
+.clear-all {
+	display: block;
+	margin: 0 auto;
+	font-family: inherit;
+	font-weight: bold;
+	background: $ui-white;
+	color: $ui-black;
+	border: 2px solid $ui-black;
+	padding: 0.5em;
+	border-radius: $border-radius;
+	margin-bottom: 20px;
+	outline: none;
+	transition: box-shadow 0.2s ease;
+
+	&:focus{
+		box-shadow: 0 0 0 2px $ui-black;
+	}
+
+	@media screen and (min-width: 1024px){
+		position: absolute;
+		top:0;
+		right:0;
+	}
+}
+
+footer{
+	font-size: 0.7rem;
+	text-align: center;
+
+	a {
+		color: inherit;
+	}
+}
+
+.player-grid{
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-gap: 20px;
+
+	@media screen and (min-width: 1024px){
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+@import 'player-card';

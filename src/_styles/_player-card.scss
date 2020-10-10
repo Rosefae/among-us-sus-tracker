@@ -1,0 +1,216 @@
+$card-border-width: 3px;
+
+.player-card{
+	--player-color: var(--player-fallback);
+	--status-color: var(--status-fallback);
+
+	background-color: $ui-white;
+	border: $card-border-width solid var(--status-color);
+	border-radius: $border-radius;
+	padding: 1rem;
+	position: relative;
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	grid-template-rows: auto 1fr;
+	grid-gap: 0.3rem 0.7rem;
+
+	transition: 
+		box-shadow 0.2s ease,
+		border-color 0.2s ease,
+		z-index 0s ease 0.3s;
+
+	&:focus-within{
+		transition: 
+			box-shadow 0.2s ease,
+			border-color 0.2s ease;
+		z-index: 100;
+	}
+
+	&__color {
+		grid-column: 1 / span 1;
+		grid-row: 1 / span 2;
+		z-index: 1;
+	}
+
+	&__name {
+		grid-column: 2 / span 1;
+		grid-row: 1 / span 1;
+		z-index: 1;
+	}
+
+	&__status {
+		grid-column: 3 / span 1;
+		grid-row: 1 / span 1;
+		z-index: 1;
+	}
+
+	&__notes {
+		grid-column: 2 / span 2;
+		grid-row: 2 / span 1;
+
+		&::before{
+			content:'';
+			position:absolute;
+			left:-$card-border-width;
+			right:-$card-border-width;
+			bottom:-$card-border-width;
+			height: 4rem;
+			background-color: $ui-white;
+			z-index: 0;
+			border-radius: 0 0 $border-radius $border-radius;
+			border: $card-border-width solid var(--status-color);
+			border-top:none;
+			transition: border-color 0.2s ease, transform 0.3s ease, z-index 0s ease 0.3s;
+		}
+
+		&:focus-within{
+			&::before{
+				transition: border-color 0.2s ease, transform 0.3s ease;
+				transform:translateY(3rem);
+			}
+		}
+	}
+}
+
+.player-icon {
+	font-size: 4rem; // icon size
+	position: relative;
+	height: 1em;
+	width: 1em;
+	margin: 0 auto;
+
+	&__body {
+		position: absolute;
+		right:0;
+		top:0;
+		width: 85%;
+		height: 90%;
+		border: 0.05em solid $ui-black;
+		background: var(--player-color);
+		border-top-left-radius: 50% 75%;
+		border-top-right-radius: 50% 75%;
+		border-bottom-right-radius: 50% 10%;
+		border-bottom-left-radius: 50% 10%;
+	}
+
+	&__back {
+		position: absolute;
+		top: 20%;
+		bottom: 15%;
+		left: 0;
+		width: calc(30% + 0.05em);
+		border: 0.05em solid $ui-black;
+		background: var(--player-color);
+		border-top-left-radius: 0.2em 80%;
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+		border-bottom-left-radius: 0.2em;
+	}
+
+	&__visor {
+		position: absolute;
+		top: 20%;
+		height: 40%;
+		right: 0;
+		left: 45%;
+		border: 0.05em solid $ui-black;
+		background: $player-icon-visor;
+		border-top-left-radius: 50% 0.2em;
+		border-top-right-radius: 50% 0.2em;
+		border-bottom-right-radius: 50% 0.2em;
+		border-bottom-left-radius: 50% 0.15em;
+
+		&::before {
+			content:'';
+			display: block;
+			position: absolute;
+			width: 50%;
+			top: 0.06em;
+			right: 0.04em;
+			height: 0.08em;
+			background-color: $ui-white;
+			border-radius: 0.1em;
+			opacity: 0.9;
+			transform: rotate(5deg);
+		}
+	}
+
+	&__dead {
+		display: none;
+		position: absolute;
+		right: -20%;
+		bottom: 0;
+		height: 100%;
+		width: 100%;
+
+		&::before, &::after{
+			content: '';
+			position: absolute;
+			left:0;
+			right:0;
+			top: 45%;
+			bottom: 45%;
+			border-radius: 50%;
+			background-color: $player-icon-dead;
+			transform: rotate(40deg);
+		}
+
+		&::after{
+			transform: rotate(-40deg);
+		}
+	}
+}
+
+.player-color{
+	margin-top: -0.2em;
+}
+
+.player-name{
+	@include strokeText();
+	font-size: 2em;
+}
+
+.player-notes{
+	$this: &;
+	position:relative;
+	height: 100%;
+
+	&__inner{
+		box-sizing: content-box;
+		position:absolute;
+		display: flex;
+		height: 100%;
+		width: 100%;
+		background: $ui-white;
+		flex-direction: column;
+		transition: height 0.3s ease;
+		border-radius: 0 0 $border-radius $border-radius;
+
+		&:focus-within{
+			height: 5.5rem;
+		}
+	}
+
+	&__input-wrapper{
+		position: relative;
+		flex-grow: 1;
+
+		textarea{
+			position: absolute;
+			height:100%;
+			overflow: auto;
+		}
+	}
+}
+
+[data-status='me']{
+	box-shadow: 0 0 0 2px var(--status-color);
+}
+
+[data-status='dead']{
+	opacity: 0.8;
+
+	.player-icon__dead{
+		display: block;
+	}
+}

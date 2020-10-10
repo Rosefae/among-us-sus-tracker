@@ -1,6 +1,6 @@
-# eleventy-starter-template
+# Among Us Sus Tracker
 
-My 11ty starter template because I need one.
+I'm making a sus tracker webpage/widget thing for Among Us. There are many others like it, but this one is mine.
 
 `npm start` and `localhost:8080`.
 
