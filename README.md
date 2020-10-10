@@ -4,6 +4,8 @@ I'm making a sus tracker webpage/widget thing for Among Us. There are many other
 
 `npm start` and `localhost:8080`.
 
+[Live version](http://amongus.byanyothername.me/)
+
 ## Scripts
 
 `npm run serve`: Runs `eleventy --serve`. Compiles templates in `src` into `dist`, as well as copying over `_assets` and `_scripts` as-is. Also watches and serves the site to `localhost:8080`.
