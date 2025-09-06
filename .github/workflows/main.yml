@@ -16,6 +16,4 @@ jobs:
     - name: Install
       run: npm install
     - name: Build
-      run: |
-        npm run oncescss
-        npm run once
+      run: npm run build
