@@ -2,7 +2,7 @@
 
 I'm making a sus tracker webpage/widget thing for Among Us. There are many others like it, but this one is mine.
 
-`npm start` and `localhost:8080`.
+[Now live on a Github Page!](https://rosefae.github.io/among-us-sus-tracker/)
 
 ## Scripts
 
@@ -15,6 +15,8 @@ I'm making a sus tracker webpage/widget thing for Among Us. There are many other
 `npm run oncescss`: Compiles SCSS files once.
 
 `npm start`: Runs `serve` and `scss` concurrently.
+
+`npm run build`: Compiles styles and 11ty stuff each once.
 
 ## File structure
 
