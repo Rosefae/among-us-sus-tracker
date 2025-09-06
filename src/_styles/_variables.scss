@@ -1,0 +1,58 @@
+$body-background-1: #BCD2F2;
+$body-background-2: #ABC6E4;
+$ui-black: #152030;
+$ui-white: #fff;
+
+$player-icon-visor: #95C9DC;
+$player-icon-dead: #d60000;
+
+$border-radius: 10px;
+
+@mixin strokeText() {
+    font-weight: 900;
+    -webkit-text-fill-color: $ui-white;
+    -webkit-text-stroke: 0.05em $ui-black;
+}
+
+@mixin dropdownArrow($line-height: 1.2em) {
+    position: relative;
+
+    &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        pointer-events: none;
+        right: calc(($line-height - 0.3em) / 2);
+        top: calc(($line-height / 2) - 0.3em);
+        width: 0.3em;
+        height: 0.3em;
+        border-right: 2px solid $ui-black;
+        border-bottom: 2px solid $ui-black;
+        transform-origin: 75% 75%;
+        transform: rotate(45deg);
+        transition: transform 0.2s ease;
+    }
+}
+
+@mixin focusUnderline() {
+    position: relative;
+
+    &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 2px;
+        background: $ui-black;
+        transform-origin: 100% 0%;
+        transform: scaleX(0);
+        transition: transform 0.2s ease;
+    }
+
+    &:focus-within::after {
+        transform-origin: 0% 0%;
+        transform: scaleX(1);
+    }
+}
